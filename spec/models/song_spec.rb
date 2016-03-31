@@ -22,6 +22,10 @@ RSpec.describe Song, type: :model do
     end
   end
 
+  it "has an album_cover attribute" do
+    expect(@grid.album_cover.instance).to eq @grid
+  end
+
   it "gets the artist name" do
     expect(@grid.artist_name).to eq("Daft Punk")
   end
