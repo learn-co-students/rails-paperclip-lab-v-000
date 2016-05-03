@@ -14,7 +14,7 @@ describe "songs", type:  :feature do
       fill_in "song_artist_name", with: "TMBG"
       attach_file "song_album_cover", Rails.root.join('spec', 'support', 'homer.gif')
       click_button "Create Song"
-
+# binding.pry
       expect(page).to have_css("img[src*='homer.gif']")
     end
   end
