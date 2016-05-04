@@ -1,3 +1,4 @@
+it
 # Uploading Images With Paperclip Lab
 
 ## Objectives

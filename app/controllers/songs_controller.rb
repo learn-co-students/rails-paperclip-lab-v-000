@@ -35,7 +35,7 @@ class SongsController < ApplicationController
     else
       render :edit
     end
-  end
+  end 
 
   def destroy
     @song = Song.find(params[:id])
@@ -47,7 +47,6 @@ class SongsController < ApplicationController
   private
 
   def song_params
-    params.require(:song).permit(:title, :artist_name)
+    params.require(:song).permit(:title, :artist_name, :album_cover)
   end
 end
-
