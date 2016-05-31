@@ -532,3 +532,65 @@ Started GET "/songs/new" for ::1 at 2016-02-06 15:27:32 -0500
 Processing by SongsController#new as HTML
   Rendered songs/new.html.erb within layouts/application (359.5ms)
 Completed 200 OK in 378ms (Views: 370.0ms | ActiveRecord: 0.0ms)
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AddAttachmentAlbumCoverToSongs (20160531163858)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "songs" ADD "album_cover_file_name" varchar[0m
+  [1m[35m (0.1ms)[0m  ALTER TABLE "songs" ADD "album_cover_content_type" varchar
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "songs" ADD "album_cover_file_size" integer[0m
+  [1m[35m (0.1ms)[0m  ALTER TABLE "songs" ADD "album_cover_updated_at" datetime
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160531163858"]]
+  [1m[35m (0.7ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_songs_on_artist_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_songs_on_artist_id' AND type='index'
+
+
+
+Started GET "/" for ::1 at 2016-05-31 09:42:05 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendered /Users/viparthasarathy/.rvm/gems/ruby-2.2.3/gems/railties-4.2.5/lib/rails/templates/rails/welcome/index.html.erb (1.9ms)
+Completed 200 OK in 33ms (Views: 32.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/songs/new" for ::1 at 2016-05-31 09:42:07 -0700
+Processing by SongsController#new as HTML
+  Rendered songs/_form.html.erb (49.0ms)
+  Rendered songs/new.html.erb within layouts/application (55.6ms)
+Completed 200 OK in 276ms (Views: 264.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2016-05-31 09:42:08 -0700
+
+
+Started POST "/songs" for ::1 at 2016-05-31 09:42:29 -0700
+Processing by SongsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"woFs3kuEOYET+igK/DhMCS7smur6CADGu2aA83WucVKqlq0QUK/qyFHBxuh4VFFzr591ZKW6iBs7hkAZGpLEuw==", "song"=>{"album_cover"=>#<ActionDispatch::Http::UploadedFile:0x007fcea783b5f8 @tempfile=#<Tempfile:/var/folders/by/29kl0sds6w79v1c4x4xwd0fw0000gn/T/RackMultipart20160531-80130-1m0b15s.png>, @original_filename="KujoAnime.png", @content_type="image/png", @headers="Content-Disposition: form-data; name=\"song[album_cover]\"; filename=\"KujoAnime.png\"\r\nContent-Type: image/png\r\n">, "title"=>"Song", "artist_name"=>"Song"}, "commit"=>"Create Song"}
+Unpermitted parameter: album_cover
+  [1m[35mArtist Load (0.2ms)[0m  SELECT  "artists".* FROM "artists" WHERE "artists"."name" = ? LIMIT 1  [["name", "Song"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "artists" ("name", "created_at", "updated_at") VALUES (?, ?, ?)  [["name", "Song"], ["created_at", "2016-05-31 16:42:29.195156"], ["updated_at", "2016-05-31 16:42:29.195156"]]
+  [1m[36m (0.6ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "songs" ("title", "artist_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Song"], ["artist_id", 3], ["created_at", "2016-05-31 16:42:29.198405"], ["updated_at", "2016-05-31 16:42:29.198405"]]
+  [1m[35m (0.6ms)[0m  commit transaction
+Redirected to http://localhost:3000/songs/3
+Completed 302 Found in 19ms (ActiveRecord: 2.5ms)
+
+
+Started GET "/songs/3" for ::1 at 2016-05-31 09:42:29 -0700
+Processing by SongsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mSong Load (0.2ms)[0m  [1mSELECT  "songs".* FROM "songs" WHERE "songs"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35mArtist Load (0.2ms)[0m  SELECT  "artists".* FROM "artists" WHERE "artists"."id" = ? LIMIT 1  [["id", 3]]
+  Rendered songs/show.html.erb within layouts/application (7.5ms)
+Completed 200 OK in 18ms (Views: 13.9ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/assets/original/default-6f4578667bf2e0bc4d40dd3fe01bab3d898cdfae6eac3735d6483c2485400346.png" for ::1 at 2016-05-31 09:42:29 -0700
