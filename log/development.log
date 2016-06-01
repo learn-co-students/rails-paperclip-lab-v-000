@@ -532,3 +532,268 @@ Started GET "/songs/new" for ::1 at 2016-02-06 15:27:32 -0500
 Processing by SongsController#new as HTML
   Rendered songs/new.html.erb within layouts/application (359.5ms)
 Completed 200 OK in 378ms (Views: 370.0ms | ActiveRecord: 0.0ms)
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AddAttachmentSongAlbumCoverToSongs (20160601180142)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "songs" ADD "song_album_cover_file_name" varchar[0m
+  [1m[35m (0.1ms)[0m  ALTER TABLE "songs" ADD "song_album_cover_content_type" varchar
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "songs" ADD "song_album_cover_file_size" integer[0m
+  [1m[35m (0.1ms)[0m  ALTER TABLE "songs" ADD "song_album_cover_updated_at" datetime
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160601180142"]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_songs_on_artist_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_songs_on_artist_id' AND type='index'
+
+
+
+Started GET "/songs/new" for ::1 at 2016-06-01 14:08:13 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by SongsController#new as HTML
+  Rendered songs/_form.html.erb (35.3ms)
+  Rendered songs/new.html.erb within layouts/application (40.1ms)
+Completed 200 OK in 267ms (Views: 256.9ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/songs" for ::1 at 2016-06-01 14:08:23 -0400
+Processing by SongsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"zEYBR3gNfxQ3h/CXtX1+kcl8ASnXl3Qd64j9xMl7+hGOc9cEQCGimRTWfqN1pcFccDWv9oEtlvan+XlxkNiezA==", "song"=>{"song_album_cover"=>#<ActionDispatch::Http::UploadedFile:0x007fc60f2c9cc8 @tempfile=#<Tempfile:/var/folders/hj/q0rglzjd10sbv_tx65zqkp0r0000gn/T/RackMultipart20160601-3117-zxpvex.jpeg>, @original_filename="animation.jpeg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"song[song_album_cover]\"; filename=\"animation.jpeg\"\r\nContent-Type: image/jpeg\r\n">, "title"=>"disney", "artist_name"=>"walt disney"}, "commit"=>"Create Song"}
+  [1m[35mArtist Load (0.2ms)[0m  SELECT  "artists".* FROM "artists" WHERE "artists"."name" = ? LIMIT 1  [["name", "walt disney"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "artists" ("name", "created_at", "updated_at") VALUES (?, ?, ?)  [["name", "walt disney"], ["created_at", "2016-06-01 18:08:23.859479"], ["updated_at", "2016-06-01 18:08:23.859479"]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+Command :: file -b --mime '/var/folders/hj/q0rglzjd10sbv_tx65zqkp0r0000gn/T/6f1c25ed1523962f1bbf9dee9be5092b20160601-3117-1vsdi2p.jpeg'
+  [1m[35m (0.1ms)[0m  begin transaction
+Command :: file -b --mime '/var/folders/hj/q0rglzjd10sbv_tx65zqkp0r0000gn/T/6f1c25ed1523962f1bbf9dee9be5092b20160601-3117-13f0sob.jpeg'
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "songs" ("title", "artist_id", "song_album_cover_file_name", "song_album_cover_content_type", "song_album_cover_file_size", "song_album_cover_updated_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["title", "disney"], ["artist_id", 3], ["song_album_cover_file_name", "animation.jpeg"], ["song_album_cover_content_type", "image/jpeg"], ["song_album_cover_file_size", 10666], ["song_album_cover_updated_at", "2016-06-01 18:08:23.864763"], ["created_at", "2016-06-01 18:08:23.887771"], ["updated_at", "2016-06-01 18:08:23.887771"]]
+  [1m[35m (2.1ms)[0m  commit transaction
+Redirected to http://localhost:3000/songs/3
+Completed 302 Found in 61ms (ActiveRecord: 5.9ms)
+
+
+Started GET "/songs/3" for ::1 at 2016-06-01 14:08:23 -0400
+Processing by SongsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mSong Load (0.2ms)[0m  [1mSELECT  "songs".* FROM "songs" WHERE "songs"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35mArtist Load (0.2ms)[0m  SELECT  "artists".* FROM "artists" WHERE "artists"."id" = ? LIMIT 1  [["id", 3]]
+  Rendered songs/show.html.erb within layouts/application (38.1ms)
+Completed 500 Internal Server Error in 46ms (ActiveRecord: 0.4ms)
+
+ActionView::Template::Error (undefined method `avatar' for nil:NilClass):
+    1: <h1><%= link_to @song.title, song_path(@song) %></h1>
+    2: <h3> by <%= display_artist(@song) %></h3>
+    3: <%= image_tag @author.avatar.url %>
+    4: 
+    5: <%= link_to "All Songs", songs_path %>
+  app/views/songs/show.html.erb:3:in `_app_views_songs_show_html_erb__2527031733821390548_70244280040920'
+
+
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (6.2ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.4ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.5ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (55.7ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.4ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.6ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (45.8ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.5ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (99.8ms)
+
+
+Started GET "/songs/3" for ::1 at 2016-06-01 14:08:39 -0400
+Processing by SongsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mSong Load (0.1ms)[0m  [1mSELECT  "songs".* FROM "songs" WHERE "songs"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35mArtist Load (0.1ms)[0m  SELECT  "artists".* FROM "artists" WHERE "artists"."id" = ? LIMIT 1  [["id", 3]]
+  Rendered songs/show.html.erb within layouts/application (3.1ms)
+Completed 500 Internal Server Error in 8ms (ActiveRecord: 0.2ms)
+
+ActionView::Template::Error (undefined method `song_album_cover' for nil:NilClass):
+    1: <h1><%= link_to @song.title, song_path(@song) %></h1>
+    2: <h3> by <%= display_artist(@song) %></h3>
+    3: <%= image_tag @author.song_album_cover.url %>
+    4: 
+    5: <%= link_to "All Songs", songs_path %>
+  app/views/songs/show.html.erb:3:in `_app_views_songs_show_html_erb__2527031733821390548_70244321420120'
+
+
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.9ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.8ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.6ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (51.1ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.3ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (42.0ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.5ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (91.3ms)
+
+
+Started GET "/songs/3" for ::1 at 2016-06-01 14:08:47 -0400
+Processing by SongsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mSong Load (0.2ms)[0m  [1mSELECT  "songs".* FROM "songs" WHERE "songs"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35mArtist Load (0.1ms)[0m  SELECT  "artists".* FROM "artists" WHERE "artists"."id" = ? LIMIT 1  [["id", 3]]
+  Rendered songs/show.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 12ms (Views: 10.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2016-06-01 14:08:47 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (2.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_songs_on_artist_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_songs_on_artist_id' AND type='index'
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AddArtistToSong (20160126235547)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.4ms)[0m  [1mCREATE TEMPORARY TABLE "asongs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "artist_id" integer, "song_album_cover_file_name" varchar, "song_album_cover_content_type" varchar, "song_album_cover_file_size" integer, "song_album_cover_updated_at" datetime) [0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_songs_on_artist_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_songs_on_artist_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  CREATE  INDEX "tindex_asongs_on_artist_id" ON "asongs" ("artist_id")
+  [1m[36m (0.1ms)[0m  [1mSELECT * FROM "songs"[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "asongs" ("id","title","created_at","updated_at","artist_id","song_album_cover_file_name","song_album_cover_content_type","song_album_cover_file_size","song_album_cover_updated_at") VALUES (1, 'Song 2', '2016-01-27 00:20:14.516774', '2016-01-27 00:20:14.516774', 1, NULL, NULL, NULL, NULL)
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "asongs" ("id","title","created_at","updated_at","artist_id","song_album_cover_file_name","song_album_cover_content_type","song_album_cover_file_size","song_album_cover_updated_at") VALUES (2, 'Flood', '2016-01-27 04:06:26.286464', '2016-01-27 04:06:26.286464', 2, NULL, NULL, NULL, NULL)[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "asongs" ("id","title","created_at","updated_at","artist_id","song_album_cover_file_name","song_album_cover_content_type","song_album_cover_file_size","song_album_cover_updated_at") VALUES (3, 'disney', '2016-06-01 18:08:23.887771', '2016-06-01 18:08:23.887771', 3, 'animation.jpeg', 'image/jpeg', 10666, '2016-06-01 18:08:23.864763')
+  [1m[36m (2.9ms)[0m  [1mDROP TABLE "songs"[0m
+  [1m[35m (0.2ms)[0m  CREATE TABLE "songs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "song_album_cover_file_name" varchar, "song_album_cover_content_type" varchar, "song_album_cover_file_size" integer, "song_album_cover_updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='tindex_asongs_on_artist_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='tindex_asongs_on_artist_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  SELECT * FROM "asongs"
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "songs" ("id","title","created_at","updated_at","song_album_cover_file_name","song_album_cover_content_type","song_album_cover_file_size","song_album_cover_updated_at") VALUES (1, 'Song 2', '2016-01-27 00:20:14.516774', '2016-01-27 00:20:14.516774', NULL, NULL, NULL, NULL)[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "songs" ("id","title","created_at","updated_at","song_album_cover_file_name","song_album_cover_content_type","song_album_cover_file_size","song_album_cover_updated_at") VALUES (2, 'Flood', '2016-01-27 04:06:26.286464', '2016-01-27 04:06:26.286464', NULL, NULL, NULL, NULL)
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "songs" ("id","title","created_at","updated_at","song_album_cover_file_name","song_album_cover_content_type","song_album_cover_file_size","song_album_cover_updated_at") VALUES (3, 'disney', '2016-06-01 18:08:23.887771', '2016-06-01 18:08:23.887771', 'animation.jpeg', 'image/jpeg', 10666, '2016-06-01 18:08:23.864763')[0m
+  [1m[35m (0.3ms)[0m  DROP TABLE "asongs"
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = ?[0m  [["version", "20160126235547"]]
+  [1m[35m (2.7ms)[0m  commit transaction
+Migrating to CreateArtists (20160108015408)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  DROP TABLE "artists"
+  [1m[36mSQL (0.1ms)[0m  [1mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = ?[0m  [["version", "20160108015408"]]
+  [1m[35m (2.7ms)[0m  commit transaction
+Migrating to CreateSongs (20160108015311)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  DROP TABLE "songs"
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = ?[0m  [["version", "20160108015311"]]
+  [1m[35m (2.7ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateSongs (20160108015311)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.4ms)[0m  [1mCREATE TABLE "songs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20160108015311"]]
+  [1m[36m (2.8ms)[0m  [1mcommit transaction[0m
+Migrating to CreateArtists (20160108015408)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.5ms)[0m  [1mCREATE TABLE "artists" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20160108015408"]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+Migrating to AddArtistToSong (20160126235547)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.7ms)[0m  [1mALTER TABLE "songs" ADD "artist_id" integer[0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.2ms)[0m  [1mCREATE  INDEX "index_songs_on_artist_id" ON "songs" ("artist_id")[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20160126235547"]]
+  [1m[36m (2.5ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_songs_on_artist_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_songs_on_artist_id' AND type='index'
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AddAttachmentAlbumCoverToSongs (20160601182141)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "songs" ADD "album_cover_file_name" varchar[0m
+  [1m[35m (0.1ms)[0m  ALTER TABLE "songs" ADD "album_cover_content_type" varchar
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "songs" ADD "album_cover_file_size" integer[0m
+  [1m[35m (0.2ms)[0m  ALTER TABLE "songs" ADD "album_cover_updated_at" datetime
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160601182141"]]
+  [1m[35m (2.5ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_songs_on_artist_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_songs_on_artist_id' AND type='index'
+
+
+
+Started GET "/songs/3" for ::1 at 2016-06-01 14:22:52 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (2.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by SongsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[35mSong Load (2.3ms)[0m  SELECT  "songs".* FROM "songs" WHERE "songs"."id" = ? LIMIT 1  [["id", 3]]
+Completed 404 Not Found in 17ms (ActiveRecord: 2.6ms)
+
+ActiveRecord::RecordNotFound (Couldn't find Song with 'id'=3):
+  app/controllers/songs_controller.rb:7:in `show'
+
+
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.0ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.4ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (12.1ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (72.9ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.5ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (52.4ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/sameerabachoti/.rvm/gems/ruby-2.2.3/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (122.9ms)
+
+
+Started GET "/songs/new" for ::1 at 2016-06-01 14:22:58 -0400
+Processing by SongsController#new as HTML
+  Rendered songs/_form.html.erb (32.1ms)
+  Rendered songs/new.html.erb within layouts/application (33.6ms)
+Completed 200 OK in 248ms (Views: 241.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/songs/" for ::1 at 2016-06-01 14:23:00 -0400
+Processing by SongsController#index as HTML
+  [1m[36mSong Load (0.2ms)[0m  [1mSELECT "songs".* FROM "songs"[0m
+  Rendered songs/index.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 7ms (Views: 6.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/songs/new" for ::1 at 2016-06-01 14:23:02 -0400
+Processing by SongsController#new as HTML
+  Rendered songs/_form.html.erb (2.1ms)
+  Rendered songs/new.html.erb within layouts/application (3.1ms)
+Completed 200 OK in 8ms (Views: 8.0ms | ActiveRecord: 0.0ms)
