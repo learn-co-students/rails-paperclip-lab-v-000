@@ -1,6 +1,6 @@
 class Song < ActiveRecord::Base
   belongs_to :artist
-  has_attached_file :album_cover, default_url: 'homer.gif', styles: { thumb: "100x100>" }
+  has_attached_file :album_cover, default_url: ':app/homer.gif', styles: { thumb: "100x100>" }
 
 
   def artist_name
