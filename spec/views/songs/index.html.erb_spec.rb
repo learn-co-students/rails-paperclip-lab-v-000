@@ -7,6 +7,7 @@ RSpec.describe 'songs/index' do
     @song = Song.create(title: "Bullet the Blue Sky", artist_name: "U2")
     allow(view).to receive(:display_artist).and_return("They Might Be Giants")
     assign(:songs, Song.all)
+    #binding.pry; require 'pry'
   end
 
   it 'calls the helper to display the artist' do
