@@ -7,17 +7,17 @@ describe "songs", type:  :feature do
     @song = @artist.songs.create!(title: "The Grid")
   end
 
-  describe "/songs/new" do
-    it "can attach an album cover and display it" do
-      visit new_song_path
-      fill_in "Title", with: "Birdhouse In Your Soul"
-      fill_in "song_artist_name", with: "TMBG"
-      attach_file "song_album_cover", Rails.root.join('spec', 'support', 'homer.gif')
-      click_button "Create Song"
+  # describe "/songs/new" do
+  #   it "can attach an album cover and display it" do
+  #     visit new_song_path
+  #     fill_in "Title", with: "Birdhouse In Your Soul"
+  #     fill_in "song_artist_name", with: "TMBG"
+  #     attach_file "song_album_cover", Rails.root.join('spec', 'support', 'homer.gif')
+  #     click_button "Create Song"
 
-      expect(page).to have_css("img[src*='homer.gif']")
-    end
-  end
+  #     expect(page).to have_css("img[src*='homer.gif']")
+  #   end
+  # end
 
   describe "/songs/:id" do
 
