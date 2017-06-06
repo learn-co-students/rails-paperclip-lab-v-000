@@ -1,6 +1,10 @@
 <ul>
 <% @songs.each do |song| %>
-  <%= image_tag song.album_cover.url(:thumb) unless song.album_cover.blank? %>
+  <% if song.album_cover.url(:thumb) %>
+    <%= image_tag song.album_cover.url(:thumb) %>
+  <% else %>
+    <%= image_tag '/thumbs/default-user-image.png' %>
+  <% end  %>
   <li><%= display_artist(song) %> - <%= link_to song.title, song_path(song) %></li>
 <% end %>
 </ul>
