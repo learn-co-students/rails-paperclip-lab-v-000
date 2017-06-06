@@ -1,8 +1,10 @@
 class Song < ActiveRecord::Base
   belongs_to :artist
+  has_attached_file :album_cover, default_url: ':style/default-user-image.png', styles: { thumb: "100x100>" }
+  validates_attachment_content_type :album_cover, content_type: %r{\Aimage\/.*\z}
 
   def artist_name
-    self.try(:artist).try(:name)
+    try(:artist).try(:name)
   end
 
   def artist_name=(name)
