@@ -9,4 +9,7 @@ class Song < ActiveRecord::Base
     artist = Artist.find_or_create_by(name: name)
     self.artist = artist
   end
+
+  has_attached_file :album_cover, default_url: ':style/kEKcOWl8RMLde.gif', styles: { thumb: "100x100>" }
+  validates_attachment_content_type :album_cover, content_type: /\Aimage\/.*\z/
 end
