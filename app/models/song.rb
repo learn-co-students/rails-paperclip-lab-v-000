@@ -1,5 +1,6 @@
 class Song < ActiveRecord::Base
   belongs_to :artist
+  has_attached_file :album_cover, default_url: 'style/homer.gif', styles: { thumb: "100x100>" }
 
   def artist_name
     self.try(:artist).try(:name)
@@ -9,4 +10,5 @@ class Song < ActiveRecord::Base
     artist = Artist.find_or_create_by(name: name)
     self.artist = artist
   end
+
 end
