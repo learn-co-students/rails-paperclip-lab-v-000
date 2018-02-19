@@ -9,3 +9,10 @@ Rails.application.config.assets.version = '1.0'
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
+
+# This is because the jpeg must be precompiled
+# Somehow this still breaks with the entry, the tests must be weird, add a PNG instead
+
+#Rails.application.config.assets.precompile += %w( thumb/default.jpeg ) 
+#Rails.application.config.assets.precompile += %w( original/default.jpeg ) 
+
