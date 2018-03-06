@@ -18,3 +18,9 @@ end
 group :development do
   gem 'web-console', '~> 2.0'
 end
+<<<<<<< HEAD
+=======
+
+gem 'paperclip'
+
+>>>>>>> 5b97e45298528b1c344999d62b5794ef87b651b7
