@@ -1,6 +1,6 @@
 class ArtistsController < ApplicationController
   def index
-    @artist = Artist.all
+    @artist = Artist.includes(:songs)
   end
 
   def show
