@@ -13,7 +13,8 @@ group :development, :test do
   gem 'rspec-rails'
 end
 
+gem 'paperclip'
+
 group :development do
   gem 'web-console', '~> 2.0'
 end
-
